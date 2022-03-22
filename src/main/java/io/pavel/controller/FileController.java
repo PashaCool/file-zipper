@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import io.pavel.service.ZipServiceImpl;
+import io.pavel.service.ZipService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FileController {
 
-    private final ZipServiceImpl zipService;
+    private final ZipService zipService;
 
     @PostMapping(produces = "application/zip")
     public void zipFiles(@RequestParam("file") MultipartFile[] files, HttpServletResponse response) throws IOException {

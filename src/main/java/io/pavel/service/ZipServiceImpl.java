@@ -1,5 +1,6 @@
 package io.pavel.service;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class ZipServiceImpl implements ZipService {
         response.setContentType(CONTENT_TYPE_APPLICATION_ZIP);
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=compressed.zip");
 
-        try (ZipOutputStream zos = new ZipOutputStream(response.getOutputStream())) {
+        try (ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(response.getOutputStream()))) {
             for (MultipartFile srcFile : srcFiles) {
                 File file = convertMultiPartFileToFile(srcFile);
                 ZipEntry zipEntry = new ZipEntry(file.getName());
