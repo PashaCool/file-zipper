@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <preConditions>
+        <dbms type="postgresql"/>
+    </preConditions>
+
+    <changeSet author="pshcharbakov" id="20220324-01">
+        <sql>
+            CREATE SCHEMA zipper;
+        </sql>
+    </changeSet>
+
+    <changeSet author="pshcharbakov" id="20220324-02">
+        <sql>
+            CREATE TABLE IF NOT EXISTS zipper.zip_hosts (
+                id_key UUID NOT NULL PRIMARY KEY,
+                client_host VARCHAR,
+                upload_date DATE NOT NULL,
+                day_count SMALLINT
+            );
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
