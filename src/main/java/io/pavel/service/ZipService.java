@@ -11,5 +11,5 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface ZipService {
 
-    void zipFilesAndWriteToResponse(MultipartFile[] srcFiles, HttpServletResponse response) throws IOException;
+    void zipFilesAndWriteToResponse(MultipartFile[] srcFiles, HttpServletResponse response, String host) throws IOException;
 }

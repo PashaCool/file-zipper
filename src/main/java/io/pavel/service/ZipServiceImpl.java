@@ -23,9 +23,12 @@ public class ZipServiceImpl implements ZipService {
 
     private static final String CONTENT_TYPE_APPLICATION_ZIP = "application/zip";
     private final FileService fileService;
+    private final CollectClientHostService collectClientHostService;
 
     @Override
-    public void zipFilesAndWriteToResponse(MultipartFile[] srcFiles, HttpServletResponse response) throws IOException {
+    public void zipFilesAndWriteToResponse(MultipartFile[] srcFiles, HttpServletResponse response, String host) throws IOException {
+        collectClientHostService.saveClientHost(host);
+
         response.setContentType(CONTENT_TYPE_APPLICATION_ZIP);
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=compressed.zip");
 
