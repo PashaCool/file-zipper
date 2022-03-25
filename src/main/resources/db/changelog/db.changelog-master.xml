@@ -6,4 +6,5 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <include file="changesets/00000_create_host_table.xml" relativeToChangelogFile="true"/>
+    <include file="changesets/00001_create_index.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
