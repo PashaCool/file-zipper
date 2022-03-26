@@ -28,4 +28,16 @@ class UtilsTest {
 
         assertThat(clientHost).isEmpty();
     }
+
+    @Test
+    void testGetFileName() {
+        String fileName = "file.tmp";
+
+        assertThat(Utils.getFileName(fileName)).isEqualTo(fileName);
+    }
+
+    @Test
+    void testGetFileNameFromNull() {
+        assertThat(Utils.getFileName(null)).isEqualTo("defaultFileName");
+    }
 }
