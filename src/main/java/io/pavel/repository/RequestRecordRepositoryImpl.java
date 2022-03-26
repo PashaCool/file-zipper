@@ -5,12 +5,15 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class RequestRecordRepositoryImpl implements RequestRecordRepository {
 
     private static final String UPDATE_HOST_COUNT = "update zipper.zip_hosts set day_count = day_count+1 where client_host=:client_host and " +
@@ -24,15 +27,17 @@ public class RequestRecordRepositoryImpl implements RequestRecordRepository {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
+    @Async
     @Override
     public void saveClientRequest(String host) {
         LocalDate today = LocalDate.now();
         int updatedRecords = jdbcTemplate.update(UPDATE_HOST_COUNT, Map.of(CLIENT_HOST, host, UPLOAD_DATE, today));
         if (updatedRecords != 0) {
-            return;
+            log.info("Update counter for exists host: {}", host);
+        } else {
+            log.info("Insert new record for host: {}", host);
+            insertNewRecord(host, today);
         }
-
-        insertNewRecord(host, today);
     }
 
     private void insertNewRecord(String host, LocalDate today) {
